@@ -3,10 +3,10 @@ const MyProductSlice = createSlice({
     name: "Product",
     initialState: [],
     reducers: {
-        addMyProducts(state, action) {
+        addProducts(state, action) {
             state.push(action.payload)
         }
     }
 })
-export const { addMyProducts } = MyProductSlice.actions;
-export default MyProductSlice.reducer
+export const { addProducts } = MyProductSlice.actions;
+export default MyProductSlice.reducer;

@@ -3,14 +3,13 @@ import React from 'react'
 import Nav from './src/Nav'
 import Store from './src/Store'
 import { Provider } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
+import Main from './src/Main';
 const App = () => {
   return (
     <Provider store={Store}>
-      <NavigationContainer>
-        <Nav />
-      </NavigationContainer>
+      <Main />
     </Provider>
+
   )
 }
-export default App;
+export default App
