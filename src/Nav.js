@@ -12,7 +12,6 @@ const Nav = () => {
                 <stack.Screen name='product' component={MyProduct} options={{ headerShown: false }} />
                 <stack.Screen name='home' component={Home} />
                 <stack.Screen name='cart' component={Cart} />
-
             </stack.Navigator>
         </NavigationContainer>
     )

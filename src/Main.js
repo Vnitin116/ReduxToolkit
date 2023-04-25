@@ -40,12 +40,12 @@ const data = [{
 },
 ]
 const Main = () => {
-    const dispatch = useDispatch()
-    useEffect(() => {
-        data.map((element) =>
-            dispatch(addProducts(element))
-        )
-    }, [])
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     data.map((element) =>
+    //         dispatch(addProducts(element))
+    //     )
+    // }, [])
     return <Nav />
 }
 export default Main;

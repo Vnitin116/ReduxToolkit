@@ -3,13 +3,33 @@ import React, { useEffect, useState } from 'react'
 import { addProducts } from './MyProductSlice';
 import { useDispatch, useSelector } from 'react-redux';
 const MyProduct = ({ navigation }) => {
+    const [btn, setbtn] = useState(true)
     const dispatch = useDispatch()
     let arr = [];
     const handleAddToCart = (item) => {
         dispatch(addProducts(item));
     };
+    // Not Done yet!!
+    const increaseQuantity = (item) => {
+        console.log("item quantity", item.quantity + 1)
+        item.quantity += 1
+    }
     const reducer = useSelector(state => state.product);
-    console.log("selector data", reducer)
+    console.log(reducer)
+    let filterData = reducer.reduce((acc, val) => {
+        if (!acc.some((obj) => obj.name === val.name)) {
+            acc.push(val);
+        }
+        return acc
+    }, []);
+    const cart = () => {
+        if (filterData === 0) {
+            Alert.alert('empty')
+        }
+        else if (filterData !== 0) {
+            navigation.navigate('cart')
+        }
+    }
     const data = [{
         id: 1,
         image: "https://contents.mediadecathlon.com/p2393852/d49a53a79a149213439c01392818d14b/p2393852.jpg?format=auto&quality=70&f=650x0",
@@ -50,8 +70,12 @@ const MyProduct = ({ navigation }) => {
         <View style={{ marginBottom: 50 }}>
             <View style={styles.mainHeader}>
                 <Text style={styles.Heading}>Product-List</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("cart", { data: reducer })}>
-                    <Text>a</Text>
+                <TouchableOpacity onPress={() =>
+                    cart()
+                }>
+                    <Text style={{ fontSize: 20, color: "black" }} >Cart</Text>
+                    <Text>Itemsadded-{filterData.length}</Text>
+
                 </TouchableOpacity>
             </View>
             <FlatList
@@ -69,25 +93,14 @@ const MyProduct = ({ navigation }) => {
                                 <Text style={{ fontSize: 18, marginLeft: 10, color: "black" }}>{item.name.substring(0, 19) + '..'}</Text>
                                 <Text style={{ marginLeft: 10, color: "green", fontWeight: "600", fontSize: 16 }}>Price:{item.price}</Text>
                                 <View style={{ marginLeft: 12, borderRadius: 100 }}>
-                                    {(item.quantity == 0 ? <Button color='green' title='Add item' onPress={() => {
+                                    <Button color='green' title='Add item' onPress={() => {
                                         handleAddToCart(item)
-                                    }} /> : (<Button color='green' title='Remove item' onPress={() => {
-                                        setBtn(true)
-                                    }} />))}
-                                    {item.quantity !== 0 ? (<View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 10 }}>
-                                        <TouchableOpacity>
-                                            <Text style={{ fontSize: 20, backgroundColor: 'green', padding: 5, height: 35, width: 30, borderRadius: 5, color: "white", textAlign: "center" }}>-</Text>
-                                        </TouchableOpacity>
-                                        <Text style={{ fontSize: 20, textAlign: "center" }}>{item.quantity}</Text>
-                                        <TouchableOpacity>
-                                            <Text style={{ fontSize: 20, backgroundColor: 'green', padding: 5, height: 35, width: 30, borderRadius: 5, color: "white", textAlign: "center" }}>+</Text>
-                                        </TouchableOpacity>
-                                    </View>)
-                                        : (null)}
+                                    }} />
                                 </View>
                             </View>
                         </View>
                     </View>} />
+
         </View>
     )
 }
